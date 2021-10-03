@@ -29,7 +29,7 @@ public class Oauth2ResourceServerConfiguration extends ResourceServerConfigurerA
                 .disable()
                 .antMatcher("/**")
                 .authorizeRequests()
-                    .antMatchers("/", "/rqps/**", "/oauth/authorize**", "/login**", "/error**")
+                    .antMatchers("/", "/v1/**", "/oauth/authorize**", "/login**", "/error**")
                     .permitAll()
                 .and()
                 .authorizeRequests()

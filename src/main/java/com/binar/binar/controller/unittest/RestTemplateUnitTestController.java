@@ -41,13 +41,50 @@ public class RestTemplateUnitTestController {
         HttpEntity<String> entity = new HttpEntity<String>(bodyTesting, headers);
 
         Long idsupplier = 1L;
-        ResponseEntity<String> exchange = restTemplate.exchange("http://localhost:8080/api/v1/rt/save/"+idsupplier , HttpMethod.POST, entity, String.class);
+        ResponseEntity<String> exchange = restTemplate.exchange("http://localhost:8080/api/v1/binar/save/"+idsupplier , HttpMethod.POST, entity, String.class);
 
         assertEquals(HttpStatus.OK, exchange.getStatusCode());
         System.out.println("response save barang="+exchange.getBody());
 //        assertEquals("application/vnd.example.v8+json", exchange.getHeaders().get("Content-Type").get(0));
 //        assertEquals("{ \"accept\": \"application/vnd.example.v2+json\", \"content-type\": \"application/vnd.example.v2+json\", \"body\": \"{ \"test\": \"phil\" }\" }", exchange.getBody());
     }
+
+    @Test
+    public void restTemplateUbahBarang() throws Exception {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Accept", "*/*");
+        headers.set("Content-Type", "application/json");
+        String bodyTesting = "{   \n" +
+                "    \"id\":\"17\",\n" +
+                "    \"nama\":\"nama 3\",\n" +
+                "    \"stok\":\"10\",\n" +
+                "    \"satuan\":\"pcs\",\n" +
+                "    \"harga\":\"1000\",\n" +
+                "    \"detailbrg\":{\n" +
+                "         \"id\":\"12\",\n" +
+                "         \"nama\":\"ubah 1\"\n" +
+                "    }\n" +
+                "}";
+        HttpEntity<String> entity = new HttpEntity<String>(bodyTesting, headers);
+
+        Long idsupplier = 1L;
+        ResponseEntity<String> exchange = restTemplate.exchange("http://localhost:8080/api/v1/binar/update/"+idsupplier , HttpMethod.PUT, entity, String.class);
+
+        assertEquals(HttpStatus.OK, exchange.getStatusCode());
+        System.out.println("response ubah barang="+exchange.getBody()); }
+
+    @Test
+    public void restTemplateDeleteBarang() throws Exception {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Accept", "*/*");
+        headers.set("Content-Type", "application/json");
+        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+
+        Long id = 19L;
+        ResponseEntity<String> exchange = restTemplate.exchange("http://localhost:8080/api/v1/binar/delete/"+id , HttpMethod.DELETE, entity, String.class);
+
+        assertEquals(HttpStatus.OK, exchange.getStatusCode());
+        System.out.println("response ubah barang="+exchange.getBody()); }
 
     @Test
     public void restTemplateListBarang() throws Exception {

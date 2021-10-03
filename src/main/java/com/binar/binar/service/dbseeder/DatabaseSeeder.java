@@ -119,8 +119,8 @@ public class DatabaseSeeder implements ApplicationRunner {
             if (null == oldClient) {
                 oldClient = new Client();
                 oldClient.setClientId(clientName);
-                oldClient.setAccessTokenValiditySeconds(28800);
-                oldClient.setRefreshTokenValiditySeconds(7257600);
+                oldClient.setAccessTokenValiditySeconds(28800);//seharian kerja : normal 1 jam
+                oldClient.setRefreshTokenValiditySeconds(7257600);//
                 oldClient.setGrantTypes("password refresh_token authorization_code");
                 oldClient.setClientSecret(password);
                 oldClient.setApproved(true);
