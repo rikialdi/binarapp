@@ -1,0 +1,33 @@
+stages:          # List of stages for jobs, and their order of execution
+  - build
+  - test
+  - deploy
+
+build-job:       # This job runs in the build stage, which runs first.
+  image: maven:3-jdk-8
+  stage: build
+  script:
+    - mvn package
+  only:
+    refs:
+      - relasitabel-oauth2
+
+deploy-job:      # This job runs in the deploy stage.
+  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  script:
+    - echo "Deploying application..."
+    - echo "Application successfully deployed."
+
+production:
+  image: ruby:2.4
+  stage: deploy
+  before_script:
+    - gem install dpl
+    - wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
+  script:
+    - dpl --provider=heroku --app=binarapp-staging --api-key=941ed7f6-e14f-4083-b931-ccb174775eec
+    - export HEROKU_API_KEY=941ed7f6-e14f-4083-b931-ccb174775eec
+    - heroku run --app binarapp-staging migrate
+  environment:
+    name: production
+    url: https://isidengannamapp.herokuapp.com
