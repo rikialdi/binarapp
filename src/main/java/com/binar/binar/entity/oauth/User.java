@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import javax.validation.constraints.*;
 
@@ -35,6 +36,18 @@ public class User implements UserDetails, Serializable {
 
     @JsonIgnore
     private String password;
+
+    @JsonIgnore
+    private String verifyToken;
+
+    @JsonIgnore
+    private Date expiredVerifyToken;
+
+    @Column(length = 100, nullable = true)
+    private String otp;
+
+    private Date otpExpiredDate;
+
 
     @JsonIgnore
     private boolean enabled = true;
@@ -160,6 +173,38 @@ public class User implements UserDetails, Serializable {
 
     public void setFullname(String fullname) {
         this.fullname = fullname;
+    }
+
+    public String getVerifyToken() {
+        return verifyToken;
+    }
+
+    public void setVerifyToken(String verifyToken) {
+        this.verifyToken = verifyToken;
+    }
+
+    public Date getExpiredVerifyToken() {
+        return expiredVerifyToken;
+    }
+
+    public void setExpiredVerifyToken(Date expiredVerifyToken) {
+        this.expiredVerifyToken = expiredVerifyToken;
+    }
+
+    public String getOtp() {
+        return otp;
+    }
+
+    public void setOtp(String otp) {
+        this.otp = otp;
+    }
+
+    public Date getOtpExpiredDate() {
+        return otpExpiredDate;
+    }
+
+    public void setOtpExpiredDate(Date otpExpiredDate) {
+        this.otpExpiredDate = otpExpiredDate;
     }
 }
 

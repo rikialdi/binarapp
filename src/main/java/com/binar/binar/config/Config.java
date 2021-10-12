@@ -12,6 +12,10 @@ import java.util.Date;
 @Data
 public class Config {
     String code = "status", message = "message";
+    public String code_notFound ="404";
+
+    public String codeRequired ="403";
+    public String isRequired =" is Required";
 
     public String code_sukses = "200";
     public String code_server = "500";
