@@ -1,14 +1,14 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8" />
-        <title th:utext="Selamat Datang.anda berhasil Register."/>
-        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-    </head>
-    <body>
-        <h1 th:utext="Selamat Datang.anda berhasil Register"/>
-        <a>Barang List</a>
-        <br/><br/>
-        <div>Copyright 2021</div>
-    </body>
+<head>
+    <meta charset="UTF-8" />
+    <title th:utext="${title}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h1 th:utext="${title}"/>
+<a>Silahkan register</a>
+<br/><br/>
+<div>Copyright 2021</div>
+</body>
 </html>

@@ -73,7 +73,7 @@ public class RegisterController {
 
 
     @PostMapping("send-email")//send OTP
-    public Map sendEmailPassword(@RequestBody UserUpdateModel user) {
+    public Map sendEmailegister(@RequestBody UserUpdateModel user) {
         String message = "Thanks, please check your email";
 
         if (user.getEmail() == null) return templateReqRes.isRequired("No email provided");
@@ -96,10 +96,10 @@ public class RegisterController {
 
             found.setOtp(otp);
             found.setOtpExpiredDate(expirationDate);
-            template = template.replaceAll("\\{\\{PASS_TOKEN}}", "http://localhost:8080/api/user-register/web/"+otp);
+            template = template.replaceAll("\\{\\{PASS_TOKEN}}", "http://localhost:8080/api/user-register/web/index/"+otp);
             userRepository.save(found);
         } else {
-            template = template.replaceAll("\\{\\{PASS_TOKEN}}", "http://localhost:8080/api/user-register/web/"+found.getOtp());
+            template = template.replaceAll("\\{\\{PASS_TOKEN}}", "http://localhost:8080/api/user-register/web/index/"+found.getOtp());
         }
         emailSender.sendAsync(found.getUsername(), "Binar - Register", template);
 
