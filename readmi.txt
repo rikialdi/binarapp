@@ -1,6 +1,6 @@
 docker-compose up -d  : menajalankan semua yang semuar servise
 
-docker-compose images
+docker-compose images  / docker-compose ps : show all image yg aktif
 
 docker-compose down -v : mematikan semua service yang ada
 

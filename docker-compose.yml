@@ -18,23 +18,23 @@ services:
 #    networks:
 #      - binar-postgres
 
-#  postgres:
-#    image: postgres:9.5
-#    volumes:
-#      - ./cache/postgres:/var/lib/postgresql/data
-#    user: ${UID:-1000}:${GROUPS:-1000}
-#    environment:
-#      - POSTGRES_USER=${DB_USER:-postgres}
-#      - POSTGRES_PASSWORD=${DB_PASS:-postgres}
-#      - POSTGRES_DB=${DB_NAME:-postgres}
-#      - PGDATA=/var/lib/postgresql/data/data
-#      - TZ=Asia/Jakarta
-#    ports:
-#      - 5436:5432
-#    networks:
-#      binar-postgres:
-#        aliases:
-#          - ${DB_HOST:-postgres}
+  postgres:
+    image: postgres:9.5
+    volumes:
+      - ./cache/postgres:/var/lib/postgresql/data
+    #user: ${UID:-1000}:${GROUPS:-1000}
+    environment:
+      - POSTGRES_USER=${DB_USER:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASS:-postgres}
+      - POSTGRES_DB=${DB_NAME:-postgres}
+      - PGDATA=/var/lib/postgresql/data/data
+      - TZ=Asia/Jakarta
+    ports:
+      - 5436:5432
+    networks:
+      binar-postgres:
+        aliases:
+          - ${DB_HOST:-postgres}
 
 #  redis:
 #    image: redis
@@ -48,21 +48,21 @@ services:
 
   spring:
     image: maven:3-jdk-8
-#    ports:
-#      - "8090:8080"
+    ports:
+      - 8090:8080
     # restart: unless-stopped
     working_dir: /opt/app
     volumes:
       - .:/opt/app
       - ./cache/maven:/var/maven/.m2
       - ./cache/cdn:${CDN_PATH:-/opt/app/cache/cdn}
-    user: ${UID:-1000}:${GROUPS:-1000}
+    #user: ${UID:-1000}:${GROUPS:-1000}
     environment:
       - TZ=Asia/Jakarta
       - SPRING_DATASOURCE_URL=jdbc:postgresql://${DB_HOST:-postgres}:${DB_PORT:-5432}/${DB_NAME:-postgres}
       - SPRING_DATASOURCE_USERNAME=${DB_USER:-postgres}
       - SPRING_DATASOURCE_PASSWORD=${DB_PASS:-postgres}
-      - SPRING_PROFILES_ACTIVE=${APP_ENV:-production}
+      - SPRING_PROFILES_ACTIVE=${APP_ENV:-dev}
 #      - SPRING_CACHE_TYPE=redis
 #      - SPRING_REDIS_HOST=${REDIS_HOST:-redis}
 #      - SPRING_REDIS_PORT=${REDIS_PORT:-6379}
@@ -74,9 +74,8 @@ services:
       - FILE_SHOW_URL=${CDN_BASE_URL:-http://172.20.2.153:8090/cdn/}
       - APP_UPLOADTO_CDN=${CDN_PATH:-/opt/app/cache/cdn/}
       - "MAVEN_OPTS=-Xmx2048m -XX:MaxPermSize=500m"
-      - CRON_EXPRESSION=${CRON_EXPRESSION:-0 0 1 */14 * ?}
-      - CRON_EXPRESSION_USER=${CRON_EXPRESSION_USER:-0 1 *  * * ?}
-
+#      - CRON_EXPRESSION=${CRON_EXPRESSION:-0 0 1 */14 * ?}
+#      - CRON_EXPRESSION_USER=${CRON_EXPRESSION_USER:-0 1 *  * * ?}
     networks:
       binar-postgres:
         aliases:
