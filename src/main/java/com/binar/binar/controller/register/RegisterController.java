@@ -96,14 +96,12 @@ public class RegisterController {
 
             found.setOtp(otp);
             found.setOtpExpiredDate(expirationDate);
-            template = template.replaceAll("\\{\\{PASS_TOKEN}}", "http://localhost:8080/api/user-register/web/index/"+otp);
+            template = template.replaceAll("\\{\\{REGISTER}}", "http://localhost:8080/api/user-register/web/index/"+otp);
             userRepository.save(found);
         } else {
-            template = template.replaceAll("\\{\\{PASS_TOKEN}}", "http://localhost:8080/api/user-register/web/index/"+found.getOtp());
+            template = template.replaceAll("\\{\\{REGISTER}}", "http://localhost:8080/api/user-register/web/index/"+found.getOtp());
         }
         emailSender.sendAsync(found.getUsername(), "Binar - Register", template);
-
-
         return templateReqRes.template1("success");
     }
 }

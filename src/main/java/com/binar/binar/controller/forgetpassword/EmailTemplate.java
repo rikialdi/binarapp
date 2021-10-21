@@ -184,13 +184,10 @@ public class EmailTemplate {
                 "</head>\n" +
                 "<body>\n" +
                 "\t<div class=\"email-container\">\n" +
-                "\t\t<p>masukan kode ini untuk mereset ulang password anda</p>\n" +
+                "\t\t<p>silahkan klik url untuk mengaktifkan akun anda.</p>\n" +
                 "\t\t\n" +
-                "\t\tkode: <b>{{PASS_TOKEN}}</b>\n" +
+                "\t\tkode: <b>{{REGISTER}}</b>\n" +
                 "\t\t\n" +
-                "\t\t<p class=\"mt--15\">Jika kamu butuh bantuan atau pertanyaan, hubungi customer care kami di .... atau kirim email ke ....</p>\n" +
-                "\t\t\n" +
-                "\t\t<p>Semoga harimu menyenangkan!</p>\n" +
                 "\t\t\n" +
                 "\t\t<p>PT,</p>\n" +
                 "\t\t<p class=\"mt--15\".....</p>\n" +

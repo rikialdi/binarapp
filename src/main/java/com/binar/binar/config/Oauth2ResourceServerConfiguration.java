@@ -1,6 +1,7 @@
 package com.binar.binar.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -8,6 +9,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 
 @Configuration
 @EnableResourceServer
+@EnableGlobalMethodSecurity(securedEnabled = true) //secure definition
 public class Oauth2ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
     /**
@@ -31,6 +33,10 @@ public class Oauth2ResourceServerConfiguration extends ResourceServerConfigurerA
                 .authorizeRequests()
                     .antMatchers("/", "/user-register/**","/forget-password/**", "/oauth/authorize**", "/login**", "/error**")
                     .permitAll()
+                .antMatchers("/v1/role-test-global/list-barang").hasAnyAuthority("ROLE_READ")
+                .antMatchers("/v1/role-test-global/post-barang").hasAnyAuthority("ROLE_WRITE")
+                .antMatchers("/v1/role-test-global/post-barang-user").hasAnyAuthority("ROLE_USER")
+                .antMatchers("/v1/role-test-global/post-barang-admin").hasAnyAuthority("ROLE_ADMIN")
                 .and()
                 .authorizeRequests()
                     .anyRequest()
@@ -39,6 +45,8 @@ public class Oauth2ResourceServerConfiguration extends ResourceServerConfigurerA
                     .formLogin()
                     .permitAll()
         ;
+
+
 
 //        http.cors()
 //                .and()

@@ -49,6 +49,7 @@ public class UserImpl implements UserService {
             user.setPassword(objModel.getPassword());
             user.setUsername(objModel.getEmail());
             user.setFullname(objModel.getFullname());
+            //step 1 :
             user.setEnabled(false); // matikan user
             if (objModel.getUsername() != null) {
                 user.setUsername1(objModel.getUsername());
