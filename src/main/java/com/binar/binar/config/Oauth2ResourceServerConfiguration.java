@@ -31,7 +31,7 @@ public class Oauth2ResourceServerConfiguration extends ResourceServerConfigurerA
                 .disable()
                 .antMatcher("/**")
                 .authorizeRequests()
-                    .antMatchers("/", "/user-register/**","/forget-password/**", "/oauth/authorize**", "/login**", "/error**")
+                    .antMatchers("/","/showFile/**","/v1/showFile/**","/v1/upload", "/user-register/**","/forget-password/**", "/oauth/authorize**", "/login**", "/error**")
                     .permitAll()
                 .antMatchers("/v1/role-test-global/list-barang").hasAnyAuthority("ROLE_READ")
                 .antMatchers("/v1/role-test-global/post-barang").hasAnyAuthority("ROLE_WRITE")

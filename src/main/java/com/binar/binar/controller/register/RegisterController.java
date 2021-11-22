@@ -6,6 +6,7 @@ import com.binar.binar.entity.oauth.User;
 import com.binar.binar.repository.oauth.UserRepository;
 import com.binar.binar.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,6 +36,9 @@ public class RegisterController {
     public UserRepository repoUser;
     TemplateCRUD templateCRUD = new TemplateCRUD();
 
+    @Autowired
+    private TokenStore tokenStore;
+
     Config config = new Config();
 
     @Autowired
@@ -53,6 +57,11 @@ public class RegisterController {
 
     TemplateReqRes templateReqRes = new TemplateReqRes();
 
+    public void  getTokenStore(){
+       // get token :
+        //  LOGUT di BE :
+    }
+
     @Autowired
     public UserRepository userRepository;
     @Value("${expired.token.password.minute:}")//FILE_SHOW_RUL
@@ -68,10 +77,14 @@ public class RegisterController {
             return new ResponseEntity<Map>(templateCRUD.notFound("Username" + config.message_alreadyexist), HttpStatus.OK);
         }
         map = serviceReq.registerManual(objModel);
+        UserUpdateModel  obk = new UserUpdateModel();
+        obk.setEmail(objModel.getEmail());
+        sendEmailegister(obk);
         return new ResponseEntity<Map>(map, HttpStatus.OK);
     }
 
 
+    // Step 2: sendp OTP berupa URL: guna updeta enable agar bisa login:
     @PostMapping("send-email")//send OTP
     public Map sendEmailegister(@RequestBody UserUpdateModel user) {
         String message = "Thanks, please check your email";

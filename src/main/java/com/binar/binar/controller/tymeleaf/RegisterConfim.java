@@ -28,18 +28,7 @@ import java.util.Map;
 public class RegisterConfim {
     @Autowired
     public UserRepository userRepo;
-
-    @GetMapping(value = "{tokenotp}")
-    public String getJenisById(Model model,@PathVariable String  tokenotp) {
-        User user = userRepo.findOneByOTP(tokenotp);
-            if (null != user) {
-                System.out.println("user null: tidak ditemukan");
-            }
-        user.setEnabled(true);
-            userRepo.save(user);
-        return "register";
-    }
-
+    //http://localhost:8080/api/user-register/web/index/"+otp);
     @GetMapping(value = { "/index/{tokenotp}"})
     public String index(Model model,@PathVariable String  tokenotp) {
         User user = userRepo.findOneByOTP(tokenotp);

@@ -53,8 +53,8 @@ public class DatabaseSeeder implements ApplicationRunner {
     };
 
     private String[] clients = new String[]{
-            "my-client-apps:ROLE_READ ROLE_WRITE",
-            "my-client-web:ROLE_READ ROLE_WRITE"
+            "my-client-apps:ROLE_READ ROLE_WRITE", // mobile
+            "my-client-web:ROLE_READ ROLE_WRITE" // web
     };
 
     private String[] roles = new String[] {
@@ -119,8 +119,8 @@ public class DatabaseSeeder implements ApplicationRunner {
             if (null == oldClient) {
                 oldClient = new Client();
                 oldClient.setClientId(clientName);
-                oldClient.setAccessTokenValiditySeconds(28800);//seharian kerja : normal 1 jam
-                oldClient.setRefreshTokenValiditySeconds(7257600);//
+                oldClient.setAccessTokenValiditySeconds(28800);//1 jam 3600 :token valid : seharian kerja : normal 1 jam
+                oldClient.setRefreshTokenValiditySeconds(7257600);// refresh
                 oldClient.setGrantTypes("password refresh_token authorization_code");
                 oldClient.setClientSecret(password);
                 oldClient.setApproved(true);

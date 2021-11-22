@@ -10,6 +10,7 @@ import java.util.*;
 import com.binar.binar.controller.fileupload.UploadFileResponse;
 import com.binar.binar.entity.Barang;
 import com.binar.binar.entity.Supplier;
+import com.binar.binar.iocdandi.BarangDTO;
 import com.binar.binar.model.ModelBarang;
 import com.binar.binar.repository.BarangRepo;
 import com.binar.binar.repository.SupplierRepo;
@@ -122,7 +123,31 @@ public class BarangControllerAPI {
             @RequestParam() String nama) {
         Pageable show_data = PageRequest.of(page, size);
         Page<Barang> list = repo.findByNama(nama, show_data);
+
         return new ResponseEntity<Page<Barang>>(list, new HttpHeaders(), HttpStatus.OK);
+    }
+
+    @GetMapping("/listbynama-dto")
+    public ResponseEntity<Map> getpage2DTO(
+            @RequestParam() Integer page,
+            @RequestParam() Integer size,
+            @RequestParam() String nama) {
+        Pageable show_data = PageRequest.of(page, size);
+        Page<Barang> list = repo.findByNama(nama, show_data);
+        List<BarangDTO> dto = new ArrayList<>();
+        for(Barang a :list ){
+            BarangDTO p = new BarangDTO();
+            p.setId(a.getId());
+            p.setNama(a.getNama());
+            dto.add(p);
+        }
+        Map map =new HashMap();
+        map.put("data",dto);
+        map.put("code","200");
+        map.put("status","success");
+
+
+        return new ResponseEntity<Map>(map, new HttpHeaders(), HttpStatus.OK);
     }
 
     @GetMapping("/listbynamalike")
